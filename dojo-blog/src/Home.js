@@ -3,6 +3,7 @@ import BlogList from './BlogList';
 
 const Home = () => {
     const [blogs, setBlogs] = useState(null);
+    const [isPending, setIsPending] = useState(true);
 
     useEffect(() => {
         //fetching data from json server
@@ -13,12 +14,15 @@ const Home = () => {
             .then(data => {
                 console.log(data);
                 setBlogs(data);
+                //Loading
+                setIsPending(false);
             })
         //dependencies
     }, []);
 
     return ( 
         <div className="home">
+            { isPending && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
         </div>
      );
